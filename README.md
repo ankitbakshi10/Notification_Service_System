@@ -24,17 +24,18 @@ The system is designed with extensibility in mind, including support for queuing
 ## Folder Structure
 
 ```bash
-notification-system/
+notification_service_system/
 ├── api/
 │ └── main.py # FastAPI app with API routes
-├── core/
-│ ├── config.py # Configuration variables (like RabbitMQ, DB settings)
-│ └── queue.py # RabbitMQ connection and queue helpers
-├── services/
-│ ├── notification_service.py # Logic to send and retry notifications
-│ └── retry.py # Retry logic using Tenacity
 ├── models/
 │ └── notification.py # Pydantic models for request/response validation
+├── services/
+│ ├── email_service.py # Logic to send Email notifications
+│ ├── sms_service.py # Logic to send SMS notifications
+│ └── in_app_service.py # Logic to send In-app notifications
+├── queue/
+│ ├── producer.py # Producer to send messages to the queue
+│ └── consumer.py # Consumer to receive and process messages from the queue
 ├── requirements.txt # Required Python packages
 └── README.md # This file
 ```
@@ -130,3 +131,48 @@ Make sure RabbitMQ server is running before you start the FastAPI app.
 
 ---
 
+## Usage Examples
+
+### SEND Notifications
+
+```bash
+POST /notifications
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "type": "email",
+  "message": "Your order has shipped!"
+}
+```
+
+### GET Notifications for a User
+
+```bash
+GET /users/1/notifications
+```
+
+---
+
+## Notes and Assumptions
+
+- The Email and SMS sending functions are stubbed/mocked. You can replace them with real providers (SendGrid, Twilio, etc.) in the service layer.
+- Notification persistence (e.g., DB) is a simple in-memory list for demonstration.
+- RabbitMQ queue integration is optional and can be enabled by modifying config and service files.
+- Retry logic is implemented using Tenacity for robustness.
+
+---
+
+## Troubleshooting
+
+- If you get errors about missing packages, make sure your virtual environment is activated and you ran `pip install -r requirements.txt`.
+- For Windows users having trouble activating the virtual environment, check PowerShell execution policies or try activating in cmd.
+- If RabbitMQ connection fails, verify the RabbitMQ service is running and the connection parameters in `queue/producer.py` are correct.
+
+---
+
+## Author
+
+*Name*: `ANKIT BAKSHI`
+*Publication Date*: `May 19, 2025`
+*E-mail*: [bakshiankit1005@gmail.com](bakshiankit1005@gmail.com)
