@@ -173,6 +173,6 @@ GET /users/1/notifications
 
 ## Author
 
-*Name*: `ANKIT BAKSHI`
-*Publication Date*: `May 19, 2025`
-*E-mail*: [bakshiankit1005@gmail.com](bakshiankit1005@gmail.com)
+- *Name*: `ANKIT BAKSHI`
+- *Publication Date*: `May 19, 2025`
+- *E-mail*: [bakshiankit1005@gmail.com](bakshiankit1005@gmail.com)
